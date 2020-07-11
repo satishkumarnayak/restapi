@@ -7,8 +7,9 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -45,14 +46,14 @@ public class ConsumerController {
 		HttpEntity<String> entity = new HttpEntity<String>(headers);
 		List<City> cities;
 		
-		/*
-		 * String body = restTemplate.exchange("http://demo8417596.mockable.io/",
-		 * HttpMethod.GET, entity, String.class) .getBody();
-		 * 
-		 * Type listType = new TypeToken<ArrayList<City>>() { }.getType(); cities = new
-		 * Gson().fromJson(body, listType);
-		 */
+		/**  Uncomment this block to access skipthedishes api 
+		   ResponseEntity<String> exchange = restTemplate.exchange("https://api-skipthedishes.skipthedishes.com/v1/restaurants/cities",HttpMethod.GET, entity, String.class);
+		   String body = exchange.getBody();
+		   Type listType = new TypeToken<ArrayList<City>>() { }.getType(); 
+		   cities = new Gson().fromJson(body, listType);
+		 **/
 
+		/** Mocking Response data , this should be removed once correct response is being returned by skipthedishes api */
 		cities = Util.getMockResponse();
 
 		ResponseCityDTO response = service.getCitiesByProvince(cities, province);

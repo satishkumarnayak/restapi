@@ -14,11 +14,12 @@ public class ConsumerService {
 	
 	public ResponseCityDTO getCitiesByProvince(List<City> cities, String province) {
 		
-		List<City> citiesInProvince = cities.stream().filter((city) -> city.getProvince().equals(province))
-				.collect(Collectors.toList());
+		List<City> citiesInProvince = cities.stream()
+				                            .filter((city) -> city.getProvince().equals(province))
+				                            .collect(Collectors.toList());
 
 		Integer amountOfResturantsInProvince = citiesInProvince.stream()
-				.collect(Collectors.summingInt(City::getRestaurants));
+															   .collect(Collectors.summingInt(City::getRestaurants));
 
 		ResponseCityDTO response = new ResponseCityDTO(amountOfResturantsInProvince, citiesInProvince);
 		return response;
